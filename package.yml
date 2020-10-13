@@ -1,0 +1,73 @@
+name       : kwin-lowlatency
+version    : 5.19.5
+release    : 1
+source     :
+    - https://cdn.download.kde.org/stable/plasma/5.19.5/kwin-5.19.5.tar.xz : 36afa37b773d31c0bcb8f4e32fa1f06cc33e15ad00e729ba36f120bbe034903b
+homepage   : https://www.kde.org/workspaces/plasmadesktop/
+license    :
+    - GFDL-1.2
+    - GPL-2.0
+component  : desktop.kde.core
+optimize   : lto
+summary    : KDE window manager
+description: |
+    KWin is the window manager for the KDE Plasma Desktop. It gives you complete control over your windows, making sure they're not in the way but aid you in your task. It paints the window decoration, the bar on top of every window with (configurable) buttons like close, maximize and minimize. It also handles placing of windows and switching between them.
+patterns   :
+    - /usr/lib64/libkdeinit5*.so
+builddeps  :
+    - pkgconfig(epoxy)
+    - pkgconfig(fontconfig)
+    - pkgconfig(freetype2)
+    - pkgconfig(gbm)
+    - pkgconfig(libcap)
+    - pkgconfig(libinput)
+    - pkgconfig(libKActivities)
+    - pkgconfig(Qt5Multimedia)
+    - pkgconfig(Qt5Quick)
+    - pkgconfig(Qt5Script)
+    - pkgconfig(Qt5Sensors)
+    - pkgconfig(Qt5UiTools)
+    - pkgconfig(Qt5VirtualKeyboard)
+    - pkgconfig(Qt5X11Extras)
+    - pkgconfig(sm)
+    - pkgconfig(wayland-cursor)
+    - pkgconfig(xcb-cursor)
+    - pkgconfig(xcb-event)
+    - pkgconfig(xcb-icccm)
+    - pkgconfig(xcb-keysyms)
+    - pkgconfig(xi)
+    - pkgconfig(xkbcommon)
+    - pkgconfig(xorg-server)
+    - breeze-devel
+    - extra-cmake-modules
+    - kcmutils-devel
+    - kcrash-devel
+    - kdeclarative-devel
+    - kdecoration-devel
+    - kdoctools-devel
+    - kglobalaccel-devel
+    - kiconthemes-devel
+    - kidletime-devel
+    - kinit-devel
+    - kio-devel
+    - kirigami2-devel
+    - knewstuff-devel
+    - knotifications-devel
+    - kscreenlocker-devel
+    - ktextwidgets-devel
+    - kwayland-devel
+    - kwayland-server-devel
+    - kwidgetsaddons-devel
+    - plasma-framework-devel
+rundeps    :
+    - kirigami2
+    - qt5-virtualkeyboard
+setup      : |
+    %patch -p1 < $pkgfiles/kwin-lowlatency-5.19.5-2.patch
+    %cmake_ninja -DBUILD_TESTING=OFF
+build      : |
+    %ninja_build
+install    : |
+    %ninja_install
+    %qml_cache
+    rm -rf $installdir/usr/share/doc/HTML
