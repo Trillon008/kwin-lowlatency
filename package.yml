@@ -1,8 +1,8 @@
 name       : kwin-lowlatency
-version    : 5.19.5
-release    : 1
+version    : 5.20.2
+release    : 2
 source     :
-    - https://cdn.download.kde.org/stable/plasma/5.19.5/kwin-5.19.5.tar.xz : 36afa37b773d31c0bcb8f4e32fa1f06cc33e15ad00e729ba36f120bbe034903b
+    - https://cdn.download.kde.org/stable/plasma/5.20.2/kwin-5.20.2.tar.xz : 79557de888c8cd671ca592b5d105e236c959f877b7e9f836bcd69ddef193759c
 homepage   : https://www.kde.org/workspaces/plasmadesktop/
 license    :
     - GFDL-1.2
@@ -22,6 +22,7 @@ builddeps  :
     - pkgconfig(libcap)
     - pkgconfig(libinput)
     - pkgconfig(libKActivities)
+    - pkgconfig(libpipewire-0.3)
     - pkgconfig(Qt5Multimedia)
     - pkgconfig(Qt5Quick)
     - pkgconfig(Qt5Script)
@@ -63,7 +64,7 @@ rundeps    :
     - kirigami2
     - qt5-virtualkeyboard
 setup      : |
-    %patch -p1 < $pkgfiles/kwin-lowlatency-5.19.5-2.patch
+    %patch -p1 < $pkgfiles/kwin-lowlatency-5.20.2.patch
     %cmake_ninja -DBUILD_TESTING=OFF
 build      : |
     %ninja_build
@@ -71,3 +72,4 @@ install    : |
     %ninja_install
     %qml_cache
     rm -rf $installdir/usr/share/doc/HTML
+
